@@ -1,0 +1,80 @@
+{
+	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+	
+    "logo": {
+    	"source": "~/.config/fastfetch/MusashiIcon.jpg",
+    	"type": "kitty", 
+    	"height": 10,
+    	"color": {
+			"1": "#C6B7FF",
+   	    },
+	   	"padding": {
+	   		"top": 1,
+	   		"left": 2,
+	   		"right": 6,
+	   	},
+    },
+
+    "display": {
+        "separator": " "
+    },
+    
+    "modules": [
+		"break",
+		
+		{
+            "type": "title",
+            "keyWidth": 10
+        },
+
+		"break",
+        
+        {
+            "type": "os",
+            "key": " ",
+			"keyColor": "#B8A6FF",
+			"color": "#E6E0FF",
+        },
+        {
+            "type": "kernel",
+            "key": " ",
+			"keyColor": "#B8A6FF",
+			"color": "#E6E0FF",
+        },
+        {
+        	"type": "shell",
+        	"format": "{}",
+        	"key": " ",
+	        "keyColor": "#B8A6FF",
+	        "color": "#E6E0FF",
+        },
+		{
+			"type": "terminal",
+			"key": " ",
+	        "keyColor": "#B8A6FF",
+	        "color": "#E6E0FF",
+		},
+        {
+            "type": "wm",
+            "key": " ",
+			"keyColor": "#B8A6FF",
+			"color": "#E6E0FF",
+        },
+        {
+            "type": "packages",
+            "format": "{pacman} (pacman)",
+            "key": " ",
+			"keyColor": "#B8A6FF",
+			"color": "#E6E0FF",  
+        },
+		{
+			"type": "memory",
+			"key": "󰍛 ",
+			"format": "{} | {}",
+			"keyColor": "#B8A6FF",
+			"color": "#E6E0FF",	
+		},
+
+    ]
+}
+

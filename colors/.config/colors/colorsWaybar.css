@@ -1,0 +1,39 @@
+/*
+#1a1a1a  bg         fundo principal
+#222222  bg-alt     barras, painéis
+#2e2e2e  bg-hover   hover, seleção
+#3a3a3a  border     bordas
+#555555  muted      texto desabilitado
+#999999  fg-dim     texto secundário
+#d0d0d0  fg         texto principal
+#f0ece4  fg-bright  off-white (destaque)
+#c0bdb5  accent     acento neutro quente
+#c0553a  urgent     erros/alertas (use pouco)
+
+@define-color background #1e1e2e;
+@define-color foreground #cdd6f4;
+@define-color select     #585b70;
+
+@define-color pink       #f5c2e7;
+@define-color purple     #cba6f7;
+@define-color red        #ea3232; /* f38ba8 *//*
+@define-color orange     #fab387;
+@define-color yellow     #f9e2af;
+@define-color green      #a6e3a1;
+@define-color blue       #89b4fa;
+@define-color gray       #45475a;
+*/
+
+
+
+@define-color background        #1a1a1a; /* fundo principal                    */
+@define-color bg_alt    #222222; /* fundo secundário (barras, painéis) */
+@define-color select  #2e2e2e; /* hover, seleção, foco               */
+@define-color border    #3a3a3a; /* bordas, separadores                */
+@define-color muted     #555555; /* texto desabilitado, comentários    */
+@define-color fg_dim    #999999; /* texto secundário                   */
+@define-color foreground        #d0d0d0; /* texto principal                    */
+@define-color fg_bright #f0ece4; /* texto em destaque / off-white      */
+@define-color accent    #c0bdb5; /* acento suave (quase branco quente) */
+@define-color urgent    #c0553a; /* erros, alertas críticos            */
+ 

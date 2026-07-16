@@ -1,0 +1,173 @@
+* {
+    font-family: "JetBrainsMono Nerd Font Propo", "Font Awesome 6 Free", "Font Awesome 6 Free Solid", monospace, "GeistMono Nerd Font";
+    font-size: 13px;
+    font-weight: 900;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: #c8c8c8;
+}
+
+/* ── Workspaces ──────────────────────────────────────── */
+
+#workspaces {
+    padding: 0 8px;
+}
+
+#workspaces button {
+    padding: 0;
+    margin: 9px 3px;
+    color: #555555;
+    background-color: #222222;
+    border-radius: 6px;
+    font-size: 12px;
+    min-height: 18px; /* 26px */
+    min-width: 38px; /* 46px */
+    transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+#workspaces button.active {
+    color: #111111;
+    background-color: #D95F3B;
+}
+
+#workspaces button.urgent {
+    color: #111111;
+    background-color: #c0392b;
+}
+
+#workspaces button:hover {
+    background-color: #333333;
+    color: #c8c8c8;
+}
+
+#workspaces button.active:hover {
+    color: #111111;
+    background-color: #D95F3B;
+}
+
+/* ── Player group ────────────────────────────────────── */
+
+#player {
+    background-color: #222222;
+    border-radius: 7px;
+    padding: 0 4px;
+    margin: 5px 0;
+    min-width: 320px;
+}
+
+#custom-media-prev,
+#custom-media-next {
+    background: transparent;
+    color: #888888;
+    padding: 0 10px;
+    font-size: 15px;
+}
+
+#custom-media-prev:hover,
+#custom-media-next:hover {
+    color: #D95F3B;
+}
+
+#custom-media-play {
+    background: transparent;
+    color: #D95F3B;
+    padding: 0 6px;
+    font-size: 17px;
+}
+
+#custom-media-play:hover {
+    color: #ff7a52;
+}
+
+#custom-media-play.stopped {
+    color: #888888;
+}
+
+#custom-media-play.paused {
+    color: #b3b3b3;
+}
+
+#custom-media-info {
+    background: transparent;
+    color: #c8c8c8;
+    padding: 3px 12px 3px 8px;
+    min-width: 190px;
+}
+
+#custom-media-info.stopped {
+    color: #888888;
+}
+
+/* ── Right modules ───────────────────────────────────── */
+
+#cpu {
+    color: #c8c8c8;
+    background-color: #222222;
+    border-radius: 6px;
+    padding: 0 14px;
+    margin: 9px 3px;
+    min-height: 18px; /* 26px */
+}
+
+#battery {
+    color: #c8c8c8;
+    background-color: #222222;
+    border-radius: 6px;
+    padding: 0 14px;
+    margin: 9px 3px;
+    min-height: 18px; /* 26px */
+}
+
+#battery.warning {
+	color: #fab387;
+}
+#battery.critical {
+	color: #f38ba8;
+}
+#battery.charging {
+	color: #89b4fa;
+}
+
+
+
+#network {
+    color: #c8c8c8;
+    background-color: #222222;
+    border-radius: 6px;
+    padding: 0 14px;
+    margin: 9px 3px;
+    min-height: 18px; /* 26px */
+}
+
+/* ── Clock ───────────────────────────────────────────── */
+
+#clock {
+    background-color: #D95F3B;
+    color: #111111;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 0 18px;
+    margin: 9px 10px 9px 3px;
+    min-height: 18px; /* 26px */
+}
+
+/* ── ToolTip ───────────────────────────────────────────── */
+
+tooltip {
+    background-color: #222222;
+    border-radius: 6px;
+    padding: 0 14px;
+    margin: 9px 3px;
+    min-height: 18px;	
+}
+
+tooltip label {
+    color: #c8c8c8;
+}

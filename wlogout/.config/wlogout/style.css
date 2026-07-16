@@ -1,0 +1,83 @@
+* {
+  background-image: none;
+  box-shadow: none;
+  font-family: JetBrainsMono Nerd Font;
+  font-weight: bold;
+}
+
+window {
+  background-color: rgba(0,0,0,0.15);
+}
+
+button {
+  color: #f8f8f2;
+  background-color: #282a36;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 45%;
+  background-clip: padding-box;
+  
+  border-radius: 20px;
+  border-width: 3px;
+  border-color: #f8f8f2;
+
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-left: 6px;
+  margin-right: 6px;
+
+  min-width: 200px;
+
+  font-size: large;
+}
+
+button:focus, button:active, button:hover {
+  background-color: #f8f8f2;
+  color: #282a36;
+  outline-style: none;
+}
+
+/* Origin Directory */
+/*/usr/share/wlogout/icons/shutdown.png*/
+
+
+#lock {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/light/lock.png");
+}
+#lock:focus, #lock:active, #lock:hover {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/dark/lock.png");
+}
+
+#shutdown {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/light/shutdown.png");
+}
+#shutdown:focus, #shutdown:active, #shutdown:hover {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/dark/shutdown.png");
+}
+
+#reboot {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/light/reboot.png");
+}
+#reboot:focus, #reboot:active, #reboot:hover {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/dark/reboot.png");
+}
+
+#suspend {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/light/suspend.png");
+}
+#suspend:focus, #suspend:active, #suspend:hover {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/dark/suspend.png");
+}
+
+#logout {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/light/logout.png");
+}
+#logout:focus, #logout:active, #logout:hover {
+	background-image: url("/home/jefferson/.local/share/wlogout/icons/dark/logout.png");
+} 
+
+
+
+
+
+
