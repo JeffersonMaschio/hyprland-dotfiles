@@ -1,9 +1,5 @@
-# Backups/cache de editor
-micro/.config/micro/backups/
-micro/.config/micro/buffers/
-
 # Pasta de backup manual (se for manter)
-waybar backup/
+"waybar backup/"
 
 # Diversos
 *.swp
