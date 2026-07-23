@@ -33,6 +33,7 @@ echo -e "\n\e[33m[Installing Apps...]\e[0m"
 sudo pacman -S --needed fastfetch kitty micro rofi swaync waybar btop nemo
 
 echo -e "\n\e[33m[Installing AUR...]\e[0m"
+#todo: verificar se ja existe
 git clone https://aur.archlinux.org/yay.git ~/yay
 cd ~/yay
 makepkg -si --noconfirm
@@ -46,9 +47,11 @@ sudo pacman -S --needed zsh
 echo ""
 read -r -p "Apply ZSH Default Shell? [Y/n]: " answerZ
 answerZ=${answerZ:-Y}
-case "${answerP,,}" in
-	y|yes)	
+case "${answerZ,,}" in
+	y|yes)
+		echo "Applying..."	
 		chsh -s /bin/zsh
+		echo "Done"		
 		;;
 	n|no)
 		echo -e "\n"
@@ -67,8 +70,8 @@ echo -e "\e[35mextract                 \e[0m| Extract any compressed file"
 echo -e "\e[35muniversalarchive        \e[0m| Compress any file"
 
 
-read -r -p "\nInstall ZSH Plugins? [y/N]: " answerP
-answerP=${answerP:-N}
+read -r -p $"\nInstall ZSH Plugins? [Y/n]: " answerP
+answerP=${answerP:-Y}
 case "${answerP}" in
 	y|yes)
 	    sudo pacman -S --needed fzf
@@ -92,10 +95,7 @@ case "${answerP}" in
 	        echo "Plugins Added!!"
 	    else
 	        echo "Error: .zshrc file was not found in the expected location."
-	    fi
-
-	    zsh
-	    
+	    fi	    
 		;;
 	n|no)
 		echo -e "\n"
