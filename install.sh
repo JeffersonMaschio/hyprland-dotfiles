@@ -17,25 +17,48 @@
 
 ZSHRC = "$HOME/.zshrc"
 
+cd $HOME
+clear
 
-echo -e "\e[34m[Wellcome to Fotfiles Installer]\e[0m"
+echo -e "\n\e[34m[Wellcome to Dotfiles Installer]\e[0m"
 
 #ver como pegar se já tem wayland + hyprland baixado
-echo -e "\e[33m[Installing Dependencies...]\e[0m"
-sudo pacman -S --needed base-devel git curl 
+if pacman -S --noconfirm git curl base-devel >/dev/null 2>&1; then
+    echo "[Done]"
+else
+    echo "[Error installing dependencies]"
+    exit 1
+fi
+echo -e "\n\e[33m[Installing Apps...]\e[0m"
+sudo pacman -S --needed fastfetch kitty micro rofi swaync waybar btop nemo
 
-echo -e "\e[33m[Installing Apps...]\e[0m"
-sudo pacman -S --needed fastfetch kitty micro rofi swaync waybar wlogout btop nemo
-
-echo -e "\e[33m[Installing AUR...]\e[0m"
-git clone https://aur.archlinux.org/yay.git ~/
+echo -e "\n\e[33m[Installing AUR...]\e[0m"
+git clone https://aur.archlinux.org/yay.git ~/yay
 cd ~/yay
-makepkg -si
+makepkg -si --noconfirm
+
+echo -e "\n\e[33m[Installing AUR Packages...]\e[0m"
+yay -S --needed --noconfirm wlogout
 	
-echo -e "\e[33m[Installing ZSH...]\e[0m"
-sudo pacman -S --needed zsh 
-		
-echo "List of Plugins:"
+echo -e "\n\e[33m[Installing ZSH...]\e[0m"
+sudo pacman -S --needed zsh
+
+echo ""
+read -r -p "Apply ZSH Default Shell? [Y/n]: " answerZ
+answerZ=${answerZ:-Y}
+case "${answerP,,}" in
+	y|yes)	
+		chsh -s /bin/zsh
+		;;
+	n|no)
+		echo -e "\n"
+		;;
+	*)
+		echo "Invalid Option"
+		;;
+esac
+ 
+echo "\nList of Plugins:"
 #magenta 
 echo -e "\e[35mzsh-autosuggestions     \e[0m| Auto Suggestions when writtign in terminal"
 echo -e "\e[35mzsh-syntax-highlighting \e[0m| Color if text right or wrong"
@@ -44,12 +67,10 @@ echo -e "\e[35mextract                 \e[0m| Extract any compressed file"
 echo -e "\e[35muniversalarchive        \e[0m| Compress any file"
 
 
-read -r -p "Install ZSH Plugins? [y/N]: " answerP
+read -r -p "\nInstall ZSH Plugins? [y/N]: " answerP
 answerP=${answerP:-N}
 case "${answerP}" in
 	y|yes)
-	    #install fzf
-	    zsh
 	    sudo pacman -S --needed fzf
 	    
 	    echo "Downloading zsh-utosuggestions..."
@@ -72,6 +93,9 @@ case "${answerP}" in
 	    else
 	        echo "Error: .zshrc file was not found in the expected location."
 	    fi
+
+	    zsh
+	    
 		;;
 	n|no)
 		echo -e "\n"
