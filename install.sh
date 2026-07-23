@@ -15,6 +15,9 @@
 # Azul = "\e[34mtexto\e[0m"
 # Magenta = "\e[35mtexto\e[0m"
 
+ZSHRC = "$HOME/.zshrc"
+
+
 echo -e "\e[34m[Wellcome to Fotfiles Installer]\e[0m"
 
 #ver como pegar se já tem wayland + hyprland baixado
@@ -28,47 +31,53 @@ echo -e "\e[33m[Installing AUR...]\e[0m"
 #git clone https://aur.archlinux.org/yay.git
 #cd yay
 #mkpkg -si
-
-read -r -p "Install ZSH? [y/N]: " answer
-answer=${answer:-N}
-
-case "${answer,,}" in
-    y|yes)
-		echo -e "\e[33m[Installing ZSH...]\e[0m"
-		#sudo pacman -S --needed zsh 
+	
+echo -e "\e[33m[Installing ZSH...]\e[0m"
+#sudo pacman -S --needed zsh 
 		
-		echo "List of Plugins:"
-		#magenta 
-		echo "zsh-autosuggestions     | Auto Suggestions when writtign in terminal"
-		echo "zsh-syntax-highlighting | Color if text right or wrong"
-		echo "zsh-interactive-cd      | Better cd + tab view with fzf"
-		echo "extract                 | Extract any compressed file"
-		echo "universalarchive        | Compress any file"
+echo "List of Plugins:"
+#magenta 
+echo "zsh-autosuggestions     | Auto Suggestions when writtign in terminal"
+echo "zsh-syntax-highlighting | Color if text right or wrong"
+echo "zsh-interactive-cd      | Better cd + tab view with fzf"
+echo "extract                 | Extract any compressed file"
+echo "universalarchive        | Compress any file"
+
 
 		
-		read -r -p "Install ZSH Plugins? [y/N]: " answerP
-		answerP=${answerP:-N}
-			case "${answerP}" in
-				y|yes)
-				    #install fzf
-					;;
-				n|no)
-					echo "no"
-					;;
-				*)
-					echo "não vale"
-					;;
-			esac
-			
-		echo -e "\e[33m[Installing ZSH...]\e[0m"
-		
-        ;;
-    n|no)
-        echo "Cancelado."
-        ;;
-    *)
-        echo "Resposta inválida."
-        ;;
+read -r -p "Install ZSH Plugins? [y/N]: " answerP
+answerP=${answerP:-N}
+case "${answerP}" in
+	y|yes)
+	    #install fzf
+	    zsh
+	    sudo pacman -S --needed fzf
+	    #pegar o link de download de cada plugin 
+	    # o extract acho que nao precisa
+	    echo "Downloading zsh-utosuggestions"
+	    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+	    echo "Downloading zsh-syntax-highlighting"
+	    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+	    echo "Activating interactive-cd"
+	    sleep 0.5
+	    echo "Activing extract"
+	    sleep 0.5
+	    echo "Activing universalarchive"
+	    sleep 0.5
+	    echo "Applying Plugins..."
+	    if [ -f "$ZSHRC" ]; then
+	        sed -i 's/plugins=(\(.*\))/plugins=(\1 zsh-autosuggestions\n zsh-syntax-highlighting\n zsh-interactive-cd\n extract\n universalarchive)/' "$ZSHRC"
+	        echo "Plugins Added!!"
+	    else
+	        echo "Error: .zshrc file didn't find."
+	    fi
+		;;
+	n|no)
+		echo -e "\n"
+		;;
+	*)
+		echo "Invalid Option"
+		;;
 esac
 
 echo "Done, enjoy!"
