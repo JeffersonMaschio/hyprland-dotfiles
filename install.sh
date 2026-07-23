@@ -22,15 +22,15 @@ echo -e "\e[34m[Wellcome to Fotfiles Installer]\e[0m"
 
 #ver como pegar se já tem wayland + hyprland baixado
 echo -e "\e[33m[Installing Dependencies...]\e[0m"
-sudo pacman -S --needed git curl 
+sudo pacman -S --needed base-devel git curl 
 
 echo -e "\e[33m[Installing Apps...]\e[0m"
 sudo pacman -S --needed fastfetch kitty micro rofi swaync waybar wlogout btop nemo
 
 echo -e "\e[33m[Installing AUR...]\e[0m"
-git clone https://aur.archlinux.org/yay.git
-cd yay
-mkpkg -si
+git clone https://aur.archlinux.org/yay.git ~/
+cd ~/yay
+makepkg -si
 	
 echo -e "\e[33m[Installing ZSH...]\e[0m"
 sudo pacman -S --needed zsh 
@@ -44,7 +44,6 @@ echo -e "\e[35mextract                 \e[0m| Extract any compressed file"
 echo -e "\e[35muniversalarchive        \e[0m| Compress any file"
 
 
-		
 read -r -p "Install ZSH Plugins? [y/N]: " answerP
 answerP=${answerP:-N}
 case "${answerP}" in
