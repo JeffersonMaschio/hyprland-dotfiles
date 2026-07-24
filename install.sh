@@ -6,7 +6,7 @@
 # 0.baixar coisas necessárias, tipo: git, waybar, rofi, kitty, etc.
 #	[0.1 se for arch puro, baixar Wayland + WM]
 # 1. baixar e ativar AUR (yay) 
-# 2. instalar ZSH
+# 2. instalar ZSH + plugins
 # 3. baixar apps/pacotes para dotfiles
 # 4. baixar dotfiles do repo
 #	4.1 aplicar dotfiles com stow (baixar stow (perguntar se quer remover depois de usar))
@@ -15,6 +15,20 @@
 # Azul = "\e[34mtexto\e[0m"
 # Magenta = "\e[35mtexto\e[0m"
 
+#filename="test_file.txt"
+#if [ -e "$filename" ]; then
+#  echo "$filename exists"
+#else
+#    echo "$filename does not exist"
+#fi
+    
+#dirname="test_directory"
+#if [ -d "$dirname" ]; then
+#  echo "$dirname exists"
+#else
+#    echo "$dirname does not exist"
+#fi
+ 
 ZSHRC = "$HOME/.zshrc"
 
 cd $HOME
@@ -23,26 +37,30 @@ clear
 echo -e "\n\e[34m[Wellcome to Dotfiles Installer]\e[0m"
 
 #ver como pegar se já tem wayland + hyprland baixado
-if pacman -S --noconfirm git curl base-devel >/dev/null 2>&1; then
+if pacman -S --noconfirm git curl base-devel stow /dev/null 2>&1; then
     echo "[Done]"
 else
     echo "[Error installing dependencies]"
     exit 1
 fi
 echo -e "\n\e[33m[Installing Apps...]\e[0m"
-sudo pacman -S --needed fastfetch kitty micro rofi swaync waybar btop nemo
+sudo pacman -S --needed --noconfirm fastfetch kitty micro rofi swaync waybar btop nemo
 
-echo -e "\n\e[33m[Installing AUR...]\e[0m"
-#todo: verificar se ja existe
-git clone https://aur.archlinux.org/yay.git ~/yay
-cd ~/yay
-makepkg -si --noconfirm
+aurDir="test_directory"
+if [ -d "$aurDir" ]; then
+	echo "$aurDir already exists"
+else
+	echo -e "\n\e[33m[Installing AUR...]\e[0m"
+	git clone https://aur.archlinux.org/yay.git ~/yay
+	cd ~/yay
+	makepkg -si --noconfirm
+fi
 
 echo -e "\n\e[33m[Installing AUR Packages...]\e[0m"
 yay -S --needed --noconfirm wlogout
 	
 echo -e "\n\e[33m[Installing ZSH...]\e[0m"
-sudo pacman -S --needed zsh
+sudo pacman -S --needed --noconfirm zsh
 
 echo ""
 read -r -p "Apply ZSH Default Shell? [Y/n]: " answerZ
@@ -74,7 +92,7 @@ read -r -p $"\nInstall ZSH Plugins? [Y/n]: " answerP
 answerP=${answerP:-Y}
 case "${answerP}" in
 	y|yes)
-	    sudo pacman -S --needed fzf
+	    sudo pacman -S --needed --noconfirm fzf
 	    
 	    echo "Downloading zsh-utosuggestions..."
 	    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
