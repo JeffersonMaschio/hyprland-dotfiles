@@ -36,15 +36,22 @@ clear
 
 echo -e "\n\e[34m[Wellcome to Dotfiles Installer]\e[0m"
 
+# Verify if executed with root privileges
+if [ "$EUID" -ne 0 ]; then
+    echo "Execute With Root Privileges."
+    exit 1
+fi
+
 #ver como pegar se já tem wayland + hyprland baixado
-if pacman -S --noconfirm git curl base-devel stow /dev/null 2>&1; then
+printf "[Installing Dependencies...] "
+if pacman -S --needed --noconfirm git curl base-devel stow >/dev/null 2>&1; then
     echo "[Done]"
 else
     echo "[Error installing dependencies]"
     exit 1
 fi
 echo -e "\n\e[33m[Installing Apps...]\e[0m"
-sudo pacman -S --needed --noconfirm fastfetch kitty micro rofi swaync waybar btop nemo
+pacman -S --needed --noconfirm fastfetch kitty micro rofi swaync waybar btop nemo
 
 aurDir="test_directory"
 if [ -d "$aurDir" ]; then
@@ -60,7 +67,7 @@ echo -e "\n\e[33m[Installing AUR Packages...]\e[0m"
 yay -S --needed --noconfirm wlogout
 	
 echo -e "\n\e[33m[Installing ZSH...]\e[0m"
-sudo pacman -S --needed --noconfirm zsh
+pacman -S --needed --noconfirm zsh
 
 echo ""
 read -r -p "Apply ZSH Default Shell? [Y/n]: " answerZ
@@ -87,12 +94,12 @@ echo -e "\e[35mzsh-interactive-cd      \e[0m| Better cd + tab view with fzf"
 echo -e "\e[35mextract                 \e[0m| Extract any compressed file"
 echo -e "\e[35muniversalarchive        \e[0m| Compress any file"
 
-
-read -r -p $"\nInstall ZSH Plugins? [Y/n]: " answerP
+echo ""
+read -r -p "Install ZSH Plugins? [Y/n]: " answerP
 answerP=${answerP:-Y}
 case "${answerP}" in
 	y|yes)
-	    sudo pacman -S --needed --noconfirm fzf
+	    pacman -S --needed --noconfirm fzf
 	    
 	    echo "Downloading zsh-utosuggestions..."
 	    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
