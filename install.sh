@@ -33,52 +33,61 @@ ZSHRC = "$HOME/.zshrc"
 
 cd $HOME
 clear
-
+echo "ga"
 echo -e "\n\e[34m[Wellcome to Dotfiles Installer]\e[0m"
 
 # Verify if executed with root privileges
-if [ "$EUID" -ne 0 ]; then
-    echo "Execute With Root Privileges."
-    exit 1
-fi
+#if [ "$EUID" -ne 0 ]; then
+#    echo "Execute With Root Privileges."
+#    exit 1
+#fi
+
+sudo -v || exit 1
 
 #ver como pegar se já tem wayland + hyprland baixado
-printf "[Installing Dependencies...] "
-if pacman -S --needed --noconfirm git curl base-devel stow >/dev/null 2>&1; then
+printf "\e[33m[Installing Dependencies...]"
+sleep 0.5
+if sudo pacman -S --needed --noconfirm git curl base-devel stow >/dev/null 2>&1; then
     echo "[Done]"
 else
     echo "[Error installing dependencies]"
     exit 1
 fi
+
 echo -e "\n\e[33m[Installing Apps...]\e[0m"
-pacman -S --needed --noconfirm fastfetch kitty micro rofi swaync waybar btop nemo
+sleep 0.5
+sudo pacman -S --needed --noconfirm fastfetch kitty micro rofi swaync waybar btop nemo
 
 aurDir="test_directory"
 if [ -d "$aurDir" ]; then
 	echo "$aurDir already exists"
 else
 	echo -e "\n\e[33m[Installing AUR...]\e[0m"
+	sleep 0.5
 	git clone https://aur.archlinux.org/yay.git ~/yay
 	cd ~/yay
 	makepkg -si --noconfirm
 fi
 
 echo -e "\n\e[33m[Installing AUR Packages...]\e[0m"
+sleep 0.5
 yay -S --needed --noconfirm wlogout
 	
 echo -e "\n\e[33m[Installing ZSH...]\e[0m"
-pacman -S --needed --noconfirm zsh
+sleep 0.5
+sudo pacman -S --needed --noconfirm zsh
 
 echo ""
 read -r -p "Apply ZSH Default Shell? [Y/n]: " answerZ
 answerZ=${answerZ:-Y}
 case "${answerZ,,}" in
-	y|yes)
+	[Yy]|[Yy][Ee][Ss])
 		echo "Applying..."	
-		chsh -s /bin/zsh
+		sleep 0.5
+		sudo usermod -s /bin/zsh "$USER"
 		echo "Done"		
 		;;
-	n|no)
+	[Nn]|[Nn][Oo])
 		echo -e "\n"
 		;;
 	*)
@@ -86,7 +95,7 @@ case "${answerZ,,}" in
 		;;
 esac
  
-echo "\nList of Plugins:"
+echo -e "\nList of Plugins:"
 #magenta 
 echo -e "\e[35mzsh-autosuggestions     \e[0m| Auto Suggestions when writtign in terminal"
 echo -e "\e[35mzsh-syntax-highlighting \e[0m| Color if text right or wrong"
@@ -97,9 +106,9 @@ echo -e "\e[35muniversalarchive        \e[0m| Compress any file"
 echo ""
 read -r -p "Install ZSH Plugins? [Y/n]: " answerP
 answerP=${answerP:-Y}
-case "${answerP}" in
-	y|yes)
-	    pacman -S --needed --noconfirm fzf
+case "${answerP,,}" in
+	[Yy]|[Yy][Ee][Ss])
+	    sudo pacman -S --needed --noconfirm fzf
 	    
 	    echo "Downloading zsh-utosuggestions..."
 	    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -122,7 +131,7 @@ case "${answerP}" in
 	        echo "Error: .zshrc file was not found in the expected location."
 	    fi	    
 		;;
-	n|no)
+	[Nn]|[Nn][Oo])
 		echo -e "\n"
 		;;
 	*)
@@ -130,4 +139,4 @@ case "${answerP}" in
 		;;
 esac
 
-echo "Done, enjoy!"
+echo "[Done, enjoy!]"
