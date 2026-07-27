@@ -15,65 +15,61 @@
 # Azul = "\e[34mtexto\e[0m"
 # Magenta = "\e[35mtexto\e[0m"
 
-#filename="test_file.txt"
-#if [ -e "$filename" ]; then
-#  echo "$filename exists"
-#else
-#    echo "$filename does not exist"
-#fi
-    
-#dirname="test_directory"
-#if [ -d "$dirname" ]; then
-#  echo "$dirname exists"
-#else
-#    echo "$dirname does not exist"
-#fi
+# Reset Color
+RESET='\033[0m'
+
+GREEN='\033[0;32m'
+YELLOW='\033[0;33'
+BLUE='\033[0;34'
+PURPLE='\033[0;35'
  
-ZSHRC = "$HOME/.zshrc"
+ZSHRC="$HOME/.zshrc"
+PACKAGES=(fastfetch kitty micro rofi swaync waybar btop nemo)
+
+
+
 
 cd $HOME
 clear
-echo "ga"
-echo -e "\n\e[34m[Wellcome to Dotfiles Installer]\e[0m"
-
-# Verify if executed with root privileges
-#if [ "$EUID" -ne 0 ]; then
-#    echo "Execute With Root Privileges."
-#    exit 1
-#fi
+echo -e "\n${BLUE}[Wellcome to Dotfiles Installer]${RESET}"
 
 sudo -v || exit 1
 
 #ver como pegar se já tem wayland + hyprland baixado
-printf "\e[33m[Installing Dependencies...]"
+printf "\n${YELLOW}[Installing Dependencies...]${RESET}"
 sleep 0.5
 if sudo pacman -S --needed --noconfirm git curl base-devel stow >/dev/null 2>&1; then
-    echo "[Done]"
+    echo "${GREEN}[Done]${RESET}"
 else
     echo "[Error installing dependencies]"
     exit 1
 fi
 
-echo -e "\n\e[33m[Installing Apps...]\e[0m"
+echo -e "\n${YELLOW}[Installing Apps...]${RESET}"
 sleep 0.5
-sudo pacman -S --needed --noconfirm fastfetch kitty micro rofi swaync waybar btop nemo
-
-aurDir="test_directory"
-if [ -d "$aurDir" ]; then
-	echo "$aurDir already exists"
+if sudo pacman -S --needed --noconfirm "${PACKAGES[@]}" >/dev/null 2>&1; then
+    echo "${GREEN}[Done]${RESET}"
 else
-	echo -e "\n\e[33m[Installing AUR...]\e[0m"
-	sleep 0.5
-	git clone https://aur.archlinux.org/yay.git ~/yay
-	cd ~/yay
-	makepkg -si --noconfirm
+    echo "[Error installing dependencies]"
+    exit 1
 fi
 
-echo -e "\n\e[33m[Installing AUR Packages...]\e[0m"
+if command -v yay >/dev/null 2>&1; then
+    echo "yay is already installed"
+else
+    echo -e "\n${YELLOW}[Installing AUR...]${RESET}"
+    sleep 0.5
+
+    git clone https://aur.archlinux.org/yay.git "$HOME/yay"
+    cd "$HOME/yay"
+    makepkg -si --noconfirm
+fi
+
+echo -e "\n${YELLOW}[Installing AUR Packages...]${RESET}"
 sleep 0.5
 yay -S --needed --noconfirm wlogout
 	
-echo -e "\n\e[33m[Installing ZSH...]\e[0m"
+echo -e "\n${YELLOW}[Installing ZSH...]${RESET}"
 sleep 0.5
 sudo pacman -S --needed --noconfirm zsh
 
@@ -97,11 +93,11 @@ esac
  
 echo -e "\nList of Plugins:"
 #magenta 
-echo -e "\e[35mzsh-autosuggestions     \e[0m| Auto Suggestions when writtign in terminal"
-echo -e "\e[35mzsh-syntax-highlighting \e[0m| Color if text right or wrong"
-echo -e "\e[35mzsh-interactive-cd      \e[0m| Better cd + tab view with fzf"
-echo -e "\e[35mextract                 \e[0m| Extract any compressed file"
-echo -e "\e[35muniversalarchive        \e[0m| Compress any file"
+echo -e "${PURPLE}zsh-autosuggestions     ${RESET}| Auto Suggestions when writtign in terminal"
+echo -e "${PURPLE}zsh-syntax-highlighting ${RESET}| Color if text right or wrong"
+echo -e "${PURPLE}zsh-interactive-cd      ${RESET}| Better cd + tab view with fzf"
+echo -e "${PURPLE}extract                 ${RESET}| Extract any compressed file"
+echo -e "${PURPLE}universalarchive        ${RESET}| Compress any file"
 
 echo ""
 read -r -p "Install ZSH Plugins? [Y/n]: " answerP
@@ -123,10 +119,10 @@ case "${answerP,,}" in
 	    echo "Activing universalarchive"
 	    sleep 0.5
 
-	    echo "Applying Plugins..."
+	    echo "${YELLOW}Applying Plugins...${RESET}"
 	    if [ -f "$ZSHRC" ]; then
 	        sed -i 's/plugins=(\(.*\))/plugins=(\1 zsh-autosuggestions\n zsh-syntax-highlighting\n zsh-interactive-cd\n extract\n universalarchive)/' "$ZSHRC"
-	        echo "Plugins Added!!"
+	        echo "${GREEN}[Plugins Added]${RESET}"
 	    else
 	        echo "Error: .zshrc file was not found in the expected location."
 	    fi	    
@@ -139,7 +135,7 @@ case "${answerP,,}" in
 		;;
 esac
 
-echo -e "Creating Symlinks for Config Files..."
+echo -e "${YELLOW}Creating Symlinks for Config Files...]${RESET}"
 cd ~/hyprland-dotfiles
 
 stow \
