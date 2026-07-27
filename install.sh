@@ -139,4 +139,24 @@ case "${answerP,,}" in
 		;;
 esac
 
+echo -e "Creating Symlinks for Config Files..."
+cd ~/hyprland-dotfiles
+
+stow \
+    colors \
+    fastfetch \
+    hypr \
+    kitty \
+    micro \
+    rofi \
+    swaync \
+    waybar \
+    wlogout
+
+
+
+
+
+
+
 echo "[Done, enjoy!]"
