@@ -168,8 +168,8 @@ case "${answerP,,}" in
 esac
 
 printf "${YELLOW}[Creating Symlinks for Config Files...]${RESET}\n"
-mv ~/hyprland-dotfiles ~/dotfiles
-cd ~/dotfiles
+mv $HOME/hyprland-dotfiles $HOME/dotfiles
+cd $HOME/dotfiles
 
 stow \
     colors \
