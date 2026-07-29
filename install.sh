@@ -183,7 +183,7 @@ stow \
     wlogout
 
 
-
+#substituir o .zshrc default pelo meu.
 
 
 
