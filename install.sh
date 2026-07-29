@@ -208,3 +208,16 @@ cp "$DOTFILES_DIR/.zshrc" "$HOME/"
 
 
 echo "[Done, enjoy!]"
+
+
+# baixar awww
+#  L baixar wallpapers
+#       L Aplicar
+#
+# baixar bibata cursor
+#
+# baixar hypr-ecosystem
+#
+# Refazer quase tudo.
+#  L mudar as configs para que nao fique tão meu \
+#    e que possa ser a base.
