@@ -2,11 +2,50 @@
 
 set -e
 
+RESET='\033[0m'
+RED="\033[0;31m"
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+
 CONTAINER="dotfiles-test"
 USER_NAME="jefferson"
 PASSWORD="p"
 
 configured=false
+
+run_with_spinner() {
+    local message="$1"
+    shift
+
+    local logfile
+    logfile="$(mktemp)"
+
+    "$@" >"$logfile" 2>&1 &
+    local pid=$!
+
+    local spin_chars='\|/-'
+    local i=0
+
+    printf "%s " "$message"
+    while kill -0 "$pid" 2>/dev/null; do
+        printf "\r%s %s" "$message" "${spin_chars:i++%${#spin_chars}:1}"
+        sleep 0.1
+    done
+
+    wait "$pid"
+    local status=$?
+
+    if [ $status -eq 0 ]; then
+        printf "\r%s ${GREEN}[Done]${RESET}\n" "$message"
+    else
+        printf "\r%s ${RED}[Error]${RESET}\n" "$message"
+        echo -e "${RED}Saída do comando:${RESET}"
+        cat "$logfile"
+    fi
+
+    rm -f "$logfile"
+    return $status
+}
 
 cleanup() {
     echo
@@ -35,19 +74,17 @@ on_exit() {
 
 trap on_exit EXIT
 
-echo "Criando container..."
-
 docker rm -f "$CONTAINER" >/dev/null 2>&1 || true
 
-docker run \
+if ! run_with_spinner "[Baixando/criando container]" docker run \
     --name "$CONTAINER" \
     -dit \
     -v "$PWD:/home/$USER_NAME/hyprland-dotfiles" \
-    archlinux:latest >/dev/null
+    archlinux:latest; then
+    exit 1
+fi
 
-echo "Configurando Arch..."
-
-docker exec "$CONTAINER" bash -c "
+if ! run_with_spinner "[Configurando Arch]" docker exec "$CONTAINER" bash -c "
 set -e
 
 pacman-key --init
@@ -75,7 +112,9 @@ alias testinstall='cd ~/hyprland-dotfiles && bash install.sh'
 EOF
 
 chown -R $USER_NAME:$USER_NAME /home/$USER_NAME
-"
+"; then
+    exit 1
+fi
 
 configured=true
 

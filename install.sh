@@ -22,10 +22,24 @@ RED="\033[0;31m"
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
+PURPLE='\033[37m'
  
 ZSHRC="$HOME/.zshrc"
 PACKAGES=(fastfetch kitty micro rofi swaync waybar btop nemo)
+DEPENDENCIES=(
+	gstreamer
+	gst-plugins-base
+	gst-plugins-good
+	gst-plugins-bad
+	gst-plugins-ugly
+	gst-libav
+	
+
+
+
+		
+)
+DOTFILES_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 run_with_spinner() {
     local message="$1"
@@ -67,16 +81,20 @@ printf "\n${BLUE}[Wellcome to Dotfiles Installer]${RESET}\n"
 
 sudo -v || exit 1
 
-#ver como pegar se já tem wayland + hyprland baixado
 sleep 0.5
+echo ""
 if ! run_with_spinner "[Installing Dependencies]" sudo pacman -S --needed --noconfirm git curl base-devel stow; then
     exit 1
 fi
 
 sleep 0.5
+sudo -v
 if ! run_with_spinner "[Installing Apps]" sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"; then
     exit 1
 fi
+
+
+sudo -v || exit 1
 
 if command -v yay >/dev/null 2>&1; then
     printf "${GREEN}[yay is already installed]${RESET}\n"
@@ -89,7 +107,8 @@ else
 	fi
 
     cd "$HOME/yay" || exit 1
-    
+
+    sudo -v
     if ! run_with_spinner "[Compiling]" makepkg -si --noconfirm; then
     	exit 1
     fi
@@ -98,12 +117,20 @@ else
 fi
 
 sleep 0.5
+sudo -v
 if ! run_with_spinner "[Installing AUR Packages]" yay -S --needed --noconfirm wlogout; then
 	exit 1
 fi
 
 sleep 0.5
+sudo -v
 if ! run_with_spinner "[Installing ZSH]" sudo pacman -S --needed --noconfirm zsh; then
+	exit 1
+fi
+
+sleep 0.5
+sudo -v
+if ! run_with_spinner "[Installing oh-my-zsh]" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 	exit 1
 fi
 
@@ -114,7 +141,7 @@ case "${answerZ,,}" in
 	[Yy]|[Yy][Ee][Ss])
 		printf "${YELLOW}[Applying...]${RESET}\n"	
 		sleep 0.5
-		sudo usermod -s /bin/zsh "$USER"
+		sudo usermod -s /bin/zsh "$(whoami)"
 		printf "${GREEN}[Done]${RESET}\n"		
 		;;
 	[Nn]|[Nn][Oo])
@@ -125,19 +152,12 @@ case "${answerZ,,}" in
 		;;
 esac
  
-printf "\nList of Plugins:\n"
-#magenta 
-printf "${PURPLE}zsh-autosuggestions     ${RESET}| Auto Suggestions when writtign in terminal\n"
-printf "${PURPLE}zsh-syntax-highlighting ${RESET}| Color if text right or wrong\n"
-printf "${PURPLE}zsh-interactive-cd      ${RESET}| Better cd + tab view with fzf\n"
-printf "${PURPLE}extract                 ${RESET}| Extract any compressed file\n"
-printf "${PURPLE}universalarchive        ${RESET}| Compress any file\n"
-
 echo ""
 read -r -p "Install ZSH Plugins? [Y/n]: " answerP
 answerP=${answerP:-Y}
 case "${answerP,,}" in
 	[Yy]|[Yy][Ee][Ss])
+		sudo -v
 	    run_with_spinner "[Installing fzf]" sudo pacman -S --needed --noconfirm fzf
 	    
 	    run_with_spinner "[Downloading zsh-autosuggestions]" git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
@@ -167,7 +187,7 @@ case "${answerP,,}" in
 		;;
 esac
 
-printf "${YELLOW}[Creating Symlinks for Config Files...]${RESET}\n"
+printf "${YELLOW}[Creating Symlinks for Config Files]${RESET}\n"
 mv $HOME/hyprland-dotfiles $HOME/dotfiles
 cd $HOME/dotfiles
 
@@ -182,10 +202,9 @@ stow \
     waybar \
     wlogout
 
-
-#substituir o .zshrc default pelo meu.
-
-
+printf "\n${YELLOW}[Copying .zshrc]${RESET}"
+sleep 0.5
+cp "$DOTFILES_DIR/.zshrc" "$HOME/"
 
 
 echo "[Done, enjoy!]"
