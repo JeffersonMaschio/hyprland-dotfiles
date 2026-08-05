@@ -16,12 +16,10 @@ hl.on("hyprland.start", function ()
 
 	-- Hypr-Ecosystem
 	hl.exec_cmd("hyprlock & hypridle & hyprsunset & hyprcap")
-
-	-- SDDM [Desabilitado]
-	--hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-
+	
 	-- Others
 	hl.exec_cmd("swaync & swayosd-server & waybar")
 	hl.exec_cmd("awww-daemon")
-	hl.exec_cmd("awww img ~/Imagens/selectedWallp/knight.jpg")
+	hl.exec_cmd("awww img ~/Imagens/selectedWallp/gruvbox-landscape.jpg")
+	hl.exec_cmd("vicinae server")	
 end)

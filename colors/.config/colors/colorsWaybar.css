@@ -16,7 +16,7 @@
 
 @define-color pink       #f5c2e7;
 @define-color purple     #cba6f7;
-@define-color red        #ea3232; /* f38ba8 *//*
+@define-color red        #ea3232; *//* f38ba8 *//*
 @define-color orange     #fab387;
 @define-color yellow     #f9e2af;
 @define-color green      #a6e3a1;
@@ -26,14 +26,14 @@
 
 
 
-@define-color background        #1a1a1a; /* fundo principal                    */
-@define-color bg_alt    #222222; /* fundo secundário (barras, painéis) */
-@define-color select  #2e2e2e; /* hover, seleção, foco               */
+@define-color background        #1a1a1a; /* fundo principal            */
+@define-color background2    #222222; /* fundo secundário (barras, painéis) */
+@define-color select  #2e2e2e; /* hover, seleção, foco                 */
 @define-color border    #3a3a3a; /* bordas, separadores                */
 @define-color muted     #555555; /* texto desabilitado, comentários    */
-@define-color fg_dim    #999999; /* texto secundário                   */
-@define-color foreground        #d0d0d0; /* texto principal                    */
-@define-color fg_bright #f0ece4; /* texto em destaque / off-white      */
+@define-color foreground        #d0d0d0; /* texto principal            */
+@define-color foreground2    #999999; /* texto secundário                   */
+@define-color foreground3 #f0ece4; /* texto em destaque / off-white      */
 @define-color accent    #c0bdb5; /* acento suave (quase branco quente) */
 @define-color urgent    #c0553a; /* erros, alertas críticos            */
  

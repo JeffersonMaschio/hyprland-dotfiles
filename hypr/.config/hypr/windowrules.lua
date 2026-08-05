@@ -71,18 +71,14 @@ hl.window_rule({ match = { class = "nemo"}, float = true})
 hl.window_rule({ match = { class = "nwg-look"}, size = {600, 500}, float = true})
 hl.window_rule({ match = { class = "org.gnome.Loupe"}, float = true})
 hl.window_rule({ match = { class = "org.gnome.FileRoller"}, float = true})
-hl.window_rule({ match = { class = "spotify"}, float = true})
 hl.window_rule({ match = { class = "nvidia-settings"}, size = {600, 600}, float = true})
-hl.window_rule({ match = { class = "Spotify"}, float = true})
 
 -- Steam
 hl.window_rule({ match = { class = "steam"}, match = { title = "Friend List"}, size = {300, 725}, float = true})
 hl.window_rule({ match = { class = "steam"}, match = { title = "Steam - Configurações"}, size = {800, 600}, float = true})
 
 hl.window_rule({ match = { class = "io.github.kaii_lb.Overskride"}, size = {400, 700}, float = true})
-hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol"}, float = true})
--- hl.window_rule({ match = { class = "Postman"}, size = {800, 680}, move = { "(monitor_w-window_w)/2", "(monitor_h-window_h)/2"}, float = true})
-hl.window_rule({ match = { class = "Postman"}, no_blur = true})
+-- hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol"}, float = true})
 
 hl.window_rule({ match = { class = "kitty"}, match = { title = "btop"}, float = true})
 hl.window_rule({ match = { class = "kitty"}, match = { title = "impala"}, float = true})
@@ -96,26 +92,13 @@ hl.window_rule({ match = { class = "org.cachyos.scx-manager"}, match = { title =
 hl.window_rule({ match = { class = "org.cachyos.KernelManager"}, match = { title = "CachyOs Kernel Manager"}, float = true})
 hl.window_rule({ match = { class = "org.cachyos.cachyos-pi"}, match = { title = "CachyOS Package Installer"}, float = true})
 
-
-hl.window_rule({ match = { class = "kitty"}, match = { title = "impala"}, float = true})
-
 -- TkInter
 hl.window_rule({ match = { class = "Tk"}, float = true})
 
-
-
+-- Wlogout - Blur
 hl.layer_rule({ match = {namespace = "logout_dialog"}, blur = true, ignore_alpha = false})
 
--- Reboot popup - Cachy-update
-hl.window_rule({
-    match = { class = "reboot-confirm" },
-    float       = true,
-    center      = true,
-    size        = "335 200",
-    stay_focused = true,
-})
-
--- Intellij
+-- Intellij - tooltip fix
 hl.window_rule({
     match = {
         class = "^jetbrains%-.*$",

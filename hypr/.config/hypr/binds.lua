@@ -15,7 +15,7 @@ local closeWindowBind = hl.bind(mainMod .. " + W", hl.dsp.window.close())
 hl.bind(mainMod .. " + CTRL + ALT + SHIFT + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("nemo"))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("~/.config/rofi/launchers/type-4/launcher.sh "))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("vicinae open")) --"~/.config/rofi/launchers/type-4/launcher.sh" 
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 --//==========================   HYPRLAND BINDS   =================================//
