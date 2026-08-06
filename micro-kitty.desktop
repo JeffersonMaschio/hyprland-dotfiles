@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Micro on Kitty
+Comment=Abrir arquivos de texto no Micro usando o Kitty
+Exec=kitty -e micro %u
+Icon=terminal
+Terminal=false
+MimeType=text/plain;
+NoDisplay=false
