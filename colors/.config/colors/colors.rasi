@@ -1,6 +1,6 @@
 * {
-    background: #1e1e2e;
-    foreground: #cdd6f4;
+    background: rgb(30, 30, 46);
+    foreground: rgb(205, 214, 244);
     select: #585b70;
 
     pink: #f5c2e7;
